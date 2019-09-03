@@ -6,6 +6,7 @@ const app = express();
 // Connect Database
 connectDB();
 
+// initial test comment to push from windows
 // Init Middleware
 app.use(express.json({ extended: false })); // now don't need json extension
 
