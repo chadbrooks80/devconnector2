@@ -1,22 +1,23 @@
-const express = require('express');
-const connectDB = require('./config/db');
+const express = require("express");
+const connectDB = require("./config/db");
 
 const app = express();
 
 // Connect Database
+// test comment to test if can pull to github from linux distro
 connectDB();
 
 // initial test comment to push from windows
 // Init Middleware
 app.use(express.json({ extended: false })); // now don't need json extension
 
-app.get('/', (req, res) => res.send('API RUNNING'));
+app.get("/", (req, res) => res.send("API RUNNING"));
 
 // Define Routes
-app.use('/api/users', require('./routes/api/users'));
-app.use('/api/auth', require('./routes/api/auth'));
-app.use('/api/profile', require('./routes/api/profile'));
-app.use('/api/posts', require('./routes/api/posts'));
+app.use("/api/users", require("./routes/api/users"));
+app.use("/api/auth", require("./routes/api/auth"));
+app.use("/api/profile", require("./routes/api/profile"));
+app.use("/api/posts", require("./routes/api/posts"));
 
 const PORT = process.env.PORT || 5000;
 
