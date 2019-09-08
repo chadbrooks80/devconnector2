@@ -4,7 +4,6 @@ const connectDB = require("./config/db");
 const app = express();
 
 // Connect Database
-// test comment to test if can pull to github from linux distro
 connectDB();
 
 // initial test comment to push from windows
