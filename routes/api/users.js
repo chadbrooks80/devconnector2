@@ -27,7 +27,11 @@ router.post(
   async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      console.log(req.body);
+      // console.log(req.body);
+      console.log('HERE!');
+      console.log(req.body.name);
+      console.log('email!!');
+      console.log(req.body.email);
       return res.status(400).json({ errors: errors.array() });
     }
 
