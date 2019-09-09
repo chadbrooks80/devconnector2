@@ -9,8 +9,10 @@ const { check, validationResult } = require('express-validator');
 
 // @route   GET api/auth
 // @desc    test route
-// @access  Public
+// @access  Private
+// @Notes It goes through the auth middleware first then it finds the ID and adds it to req.user
 router.get('/', auth, async (req, res) => {
+  console.log(req.user);
   try {
     const user = await User.findById(req.user.id).select('-password'); //the -password says not to get the password
     res.send(user);
