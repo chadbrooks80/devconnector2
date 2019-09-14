@@ -49,7 +49,7 @@ export const getProfiles = () => async dispatch => {
 // Get  Profile by id
 export const getProfileById = userId => async dispatch => {
   try {
-    const res = await axios.get(`/api/profileuser/${userId}`);
+    const res = await axios.get(`/api/profile/user/${userId}`);
 
     dispatch({
       type: GET_PROFILE,
@@ -115,7 +115,6 @@ export const createProfile = (
     const errors = err.response.data.errors;
 
     if (errors) {
-      console.log(errors);
       errors.forEach(error => dispatch(setAlert(error.msg, 'danger')));
     }
 
@@ -154,7 +153,6 @@ export const addExperience = (formData, history) => async dispatch => {
     const errors = err.response.data.errors;
 
     if (errors) {
-      console.log(errors);
       errors.forEach(error => dispatch(setAlert(error.msg, 'danger')));
     }
 
@@ -255,10 +253,9 @@ export const deleteEducation = eduId => async dispatch => {
 
 // Delete Account and Profile
 export const deleteAccount = eduId => async dispatch => {
-  console.log('heere!!!');
   if (window.confirm('Are you Sure? This cannot be undone!')) {
     try {
-      const res = await axios.delete(`/api/profile/`);
+      await axios.delete(`/api/profile/`);
 
       dispatch({ type: CLEAR_PROFILE });
       dispatch({ type: ACCOUNT_DELETED });

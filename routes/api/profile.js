@@ -23,7 +23,7 @@ router.get('/me', auth, async (req, res) => {
 
     res.json(profile);
   } catch (err) {
-    console.log(err.message);
+    console.error(err.message);
     res.status(500).send('Server Error');
   }
 });
@@ -74,9 +74,6 @@ router.post(
     if (status) profileFields.status = status;
     if (githubusername) profileFields.githubusername = githubusername;
     if (company) profileFields.company = company;
-    console.log('skills!');
-    console.log(typeof skills);
-    console.log(skills.split(','));
     // turn comma delimated string to array
     if (skills)
       profileFields.skills = skills.split(',').map(skill => skill.trim());
@@ -108,7 +105,7 @@ router.post(
       await profile.save();
       return res.json(profile);
     } catch (err) {
-      console.log(err.message);
+      console.error(err.message);
       res.status(500).send('Server Error');
     }
   }
@@ -123,7 +120,7 @@ router.get('/', async (req, res) => {
     const profiles = await Profile.find().populate('user', ['name', 'avatar']);
     res.json(profiles);
   } catch (err) {
-    console.log(err.message);
+    console.error(err.message);
     res.status(500).send('Server Error');
   }
 });
@@ -133,7 +130,6 @@ router.get('/', async (req, res) => {
 // @access  Public
 router.get('/user/:user_id', async (req, res) => {
   try {
-    console.log(req.params.user_id);
     // the populate allows us to pull the name and avatar details from the user profile
     const profile = await Profile.findOne({
       user: req.params.user_id
@@ -143,7 +139,7 @@ router.get('/user/:user_id', async (req, res) => {
 
     res.json(profile);
   } catch (err) {
-    console.log(err.message);
+    console.error(err.message);
     if (err.kind === 'ObjectId') {
       return res.status(400).json({ msg: 'Profile not found' });
     }
@@ -165,7 +161,7 @@ router.delete('/', auth, async (req, res) => {
     await User.findOneAndRemove({ _id: req.user.id });
     res.json({ msg: 'User Deleted' });
   } catch (err) {
-    console.log(err.message);
+    console.error(err.message);
     res.status(500).send('Server Error');
   }
 });
@@ -272,7 +268,6 @@ router.put(
     ]
   ],
   async (req, res) => {
-    console.log("i'm here");
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
